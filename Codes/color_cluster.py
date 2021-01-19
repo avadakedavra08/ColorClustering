@@ -1,9 +1,7 @@
 
 # Packages to be imported
 
-import os
 import argparse
-import imutils
 import utils
 import cv2
 import matplotlib.pyplot as plt
@@ -32,7 +30,8 @@ args = vars(ap.parse_args())
 image = cv2.imread(args["image"])
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 print("Before Reshaping")
-print(image.shape) # 3D - image
+print(image.shape)
+# 3D - image
 # Basic goal : "k" clusters, "n" data points
 # Image -> Matrix of pixels
 #  For applying clusters to pixel values, we need MxN list of pixels
@@ -50,21 +49,16 @@ clt = KMeans(n_clusters = args["clusters"])
 clt.fit(image)
 
 '''
-Most dominant colors can be displayed as :
-
-
+Logic : 
 '''
 
-
-
-
-
-
+hist = utils.centroid_histogram(clt)
+bar = utils.plot_colors(hist,clt.cluster_centers_)
 
 
 plt.figure()
 plt.axis("off")
-plt.imshow(image)
+plt.imshow(bar)
 plt.show()
 
 
